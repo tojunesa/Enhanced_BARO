@@ -2,9 +2,16 @@ import os
 import warnings
 warnings.filterwarnings("ignore")
 
+from scipy.stats.mstats import winsorize
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import RobustScaler, StandardScaler
+from scipy.stats import norm
+
+from sklearn.ensemble import IsolationForest
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.cluster import DBSCAN
+from sklearn.mixture import GaussianMixture
 
 from RCAEval.io.time_series import (
     convert_mem_mb,
@@ -16,8 +23,80 @@ from RCAEval.io.time_series import (
     select_useful_cols,
 )
 
+# 1. Adaptive Z-Score
+def adaptive_z_score(data, confidence=0.99):
+    mean, std = np.mean(data), np.std(data)
+    threshold = norm.ppf(confidence)
+    z_scores = (data - mean) / std
+    return data[np.abs(z_scores) <= threshold]
+
+# 2. Isolation Forest
+def isolation_forest_outlier(data, contamination=0.01):
+    model = IsolationForest(contamination=contamination, random_state=42)
+    preds = model.fit_predict(data.reshape(-1, 1))
+    return data[preds == 1]
+
+# 3. Local Outlier Factor (LOF)
+def local_outlier_factor(data, n_neighbors=20, contamination=0.01):
+    model = LocalOutlierFactor(n_neighbors=n_neighbors, contamination=contamination)
+    preds = model.fit_predict(data.reshape(-1, 1))
+    return data[preds == 1]
+
+# 4. Interquartile Range (IQR)
+def iqr_outlier(data):
+    Q1 = np.percentile(data, 25)
+    Q3 = np.percentile(data, 75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    return data[(data >= lower_bound) & (data <= upper_bound)]
+
+# 5. Tukey’s Fences (IQR Alternative)
+def tukey_outlier(data, k=2.2):  # More aggressive than IQR
+    Q1 = np.percentile(data, 25)
+    Q3 = np.percentile(data, 75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - k * IQR
+    upper_bound = Q3 + k * IQR
+    return data[(data >= lower_bound) & (data <= upper_bound)]
+
+# 6. DBSCAN Outlier Detection
+def dbscan_outlier(data, eps=1.5, min_samples=5):
+    model = DBSCAN(eps=eps, min_samples=min_samples)
+    labels = model.fit_predict(data.reshape(-1, 1))
+    return data[labels != -1]
+
+# 7. Gaussian Mixture Model (GMM)
+def gmm_outlier(data, n_components=2):
+    model = GaussianMixture(n_components=n_components)
+    model.fit(data.reshape(-1, 1))
+    scores = model.score_samples(data.reshape(-1, 1))
+    threshold = np.percentile(scores, 5)
+    return data[scores > threshold]
+
+# 8. Bayesian Outlier Detection (BOCD)
+def bayesian_outlier(data):
+    try:
+        from bocd import BOCD
+        model = BOCD()
+        scores = model.fit_predict(data)
+        return data[scores < 0.99]
+    except ImportError:
+        warnings.warn("BOCD package not found, skipping Bayesian Outlier Detection.")
+        return data
+
+# 9. Clipping Outliers
+def clip_outlier(data, lower_percentile=5, upper_percentile=95):
+    lower_bound = np.percentile(data, lower_percentile)
+    upper_bound = np.percentile(data, upper_percentile)
+    return np.clip(data, lower_bound, upper_bound)
+
+# 10. Winsorization
+def winsorize_outlier(data, limits=(0.02, 0.02)):  # Trims top and bottom 5% of values
+    return winsorize(data, limits=limits)
+
 def baro(
-    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, **kwargs
+    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, outlier_method='adaptive_z', **kwargs
 ):
     if anomalies is None:
         normal_df = data[data["time"] < inject_time]
@@ -45,6 +124,24 @@ def baro(
     for col in normal_df.columns:
         a = normal_df[col].to_numpy()
         b = anomal_df[col].to_numpy()
+
+        # Select and apply the chosen outlier detection method
+        outlier_methods = {
+            'adaptive_z': adaptive_z_score,
+            'isolation_forest': isolation_forest_outlier,
+            'lof': local_outlier_factor,
+            'iqr': iqr_outlier,
+            'tukey': tukey_outlier,
+            'dbscan': dbscan_outlier,
+            'gmm': gmm_outlier,
+            'bayesian': bayesian_outlier,
+            'winsorization': winsorize_outlier,
+            'clipping': clip_outlier
+        }
+
+        if outlier_method in outlier_methods:
+            a = outlier_methods[outlier_method](a)
+            b = outlier_methods[outlier_method](b)
 
         scaler = RobustScaler().fit(a.reshape(-1, 1))
         zscores = scaler.transform(b.reshape(-1, 1))[:, 0]

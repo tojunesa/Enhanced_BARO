@@ -7,6 +7,9 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import RobustScaler, StandardScaler
 from scipy.stats import norm
+from scipy.stats import skew
+from statsmodels.tsa.stattools import adfuller
+from scipy.stats import entropy as scipy_entropy
 
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
@@ -95,8 +98,64 @@ def clip_outlier(data, lower_percentile=5, upper_percentile=95):
 def winsorize_outlier(data, limits=(0.02, 0.02)):  # Trims top and bottom 5% of values
     return winsorize(data, limits=limits)
 
+
+# 1. Rolling Mean
+def rolling_mean(data, window=5):
+    return pd.Series(data).rolling(window=window, min_periods=1).mean().to_numpy()
+
+# 2. Rolling Std
+def rolling_std(data, window=5):
+    return pd.Series(data).rolling(window=window, min_periods=1).std().to_numpy()
+
+# 3. Rate of Change (RoC)
+def rate_of_change(data):
+    return np.append([np.nan], np.diff(data) / data[:-1])  # Avoid division by zero
+
+# 4. Averafe Percentage Change (AvgPctChange)
+def avg_pct_change(data):
+    return np.append([0], np.diff(data) / np.where(data[:-1] != 0, data[:-1], 1))  # Avoid division by zero
+
+# 5. Trend Slope
+def trend_slope(data):
+    x = np.arange(len(data))
+    return np.polyfit(x, data, 1)[0]  # Returns slope
+
+# 6. CUSUM (Cumulative Sum Control Chart)
+def cusum(data, threshold=0.01):
+    mean = np.mean(data)
+    cusum = np.cumsum(data - mean)
+    return cusum * (cusum > threshold)  # Keeps only deviations above threshold
+
+# 7. Exponentially Weighted Moving Average (EWMA)
+def ewma(data, alpha=0.2):
+    return pd.Series(data).ewm(alpha=alpha).mean().to_numpy()
+
+# 8. Coefficient of Variation (CV) 
+def coefficient_of_variation(data):
+    mean = np.mean(data)
+    return np.std(data) / mean if mean != 0 else 0  # Avoid division by zero
+
+# 9. Rolling Mean Deviation (RMD)
+def rolling_mean_deviation(data, window=5):
+    rolling_mean = pd.Series(data).rolling(window=window, min_periods=1).mean()
+    return np.abs(data - rolling_mean)
+
+# 10. Entropy
+def entropy(data, bins=10):
+    hist, _ = np.histogram(data, bins=bins, density=True)
+    hist = hist[hist > 0]
+    return -np.sum(hist * np.log(hist))  # Shannon entropy
+
+# 11. Skewness
+def skewness(data):
+    return np.array([skew(data)])
+
+# 12. Raw Feature
+def raw(data):
+    return data
+
 def baro(
-    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, outlier_method='adaptive_z', **kwargs
+    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, outlier_method='adaptive_z', augment_features=None, **kwargs
 ):
     if anomalies is None:
         normal_df = data[data["time"] < inject_time]
@@ -121,6 +180,28 @@ def baro(
 
     ranks = []
 
+    # Feature Augmentation Function
+    def apply_augmentation(df, methods):
+        augmented_df = pd.DataFrame()
+        augment_methods = {
+                "rolling_mean": rolling_mean,
+                "rolling_std": rolling_std,
+                "rate_of_change": rate_of_change,
+                "avg_pct_change": avg_pct_change, 
+                "trend_slope": trend_slope,
+                "cusum": cusum,
+                "ewma": ewma,
+                "coefficient_of_variation": coefficient_of_variation, 
+                "rolling_mean_deviation": rolling_mean_deviation,
+                "entropy": entropy,
+                "skewness": skewness, 
+                "raw": raw
+        }
+        for method in methods:
+            if method in augment_methods:
+                augmented_df[method] = augment_methods[method](df)
+        return augmented_df if not augmented_df.empty else df
+    
     for col in normal_df.columns:
         a = normal_df[col].to_numpy()
         b = anomal_df[col].to_numpy()
@@ -143,10 +224,30 @@ def baro(
             a = outlier_methods[outlier_method](a)
             b = outlier_methods[outlier_method](b)
 
-        scaler = RobustScaler().fit(a.reshape(-1, 1))
-        zscores = scaler.transform(b.reshape(-1, 1))[:, 0]
-        score = max(zscores)
-        ranks.append((col, score))
+         
+        if augment_features:
+            normal_augmented = apply_augmentation(a, augment_features)
+            anomal_augmented = apply_augmentation(b, augment_features)
+            max_score = float('-inf')
+
+            for method in normal_augmented.columns:
+                normal_feature = normal_augmented[method].to_numpy()
+                anomal_feature = anomal_augmented[method].to_numpy()
+
+                scaler = RobustScaler().fit(normal_feature.reshape(-1, 1))
+                zscores = scaler.transform(anomal_feature.reshape(-1, 1))[:, 0]
+                score = max(zscores)
+                # print(f"{method} - {score}")
+
+                if score > max_score:
+                    max_score = score
+            ranks.append((col, max_score))
+
+        else:
+            scaler = RobustScaler().fit(a.reshape(-1, 1))
+            zscores = scaler.transform(b.reshape(-1, 1))[:, 0]
+            score = max(zscores)
+            ranks.append((col, score))
 
     ranks = sorted(ranks, key=lambda x: x[1], reverse=True)
     ranks = [x[0] for x in ranks]

@@ -82,6 +82,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="RCAEval evaluation")
     parser.add_argument("--method", type=str, help="Choose a method.")
     parser.add_argument("--outlier", type=str, help="Choose a method.")
+    parser.add_argument("--feature-augment", type=str, default=None, help="Choose a method.")
     parser.add_argument("--dataset", type=str, help="Choose a dataset.", choices=[
         "online-boutique", "sock-shop-1", "sock-shop-2", "train-ticket",
         "re1-ob", "re1-ss", "re1-tt", "re2-ob", "re2-ss", "re2-tt", "re3-ob", "re3-ss", "re3-tt"
@@ -253,6 +254,7 @@ def process(data_path):
             verbose=False,
             n_iter=num_node,
             outlier_method=args.outlier,
+            augment_features=args.feature_augment.split('-') if args.feature_augment else None,
             args=run_args,
         )
         root_causes = out.get("ranks")
@@ -397,7 +399,7 @@ for service in services:
         eval_data["top_5_metric"].append(f_evaluator.accuracy(5))
         eval_data["avg@5_metric"].append(f_evaluator.average(5))
 
-
+'''
 print("--- Evaluation results ---")
 for name, s_evaluator, f_evaluator in [
     ("cpu", s_evaluator_cpu, f_evaluator_cpu),
@@ -422,8 +424,33 @@ for name, s_evaluator, f_evaluator in [
 
     if s_evaluator.average(5) is not None:
         print( f"Avg@5-{name.upper()}:".ljust(12), round(s_evaluator.average(5), 2))
-
-
+    
 print("---")
 print("Avg speed:", avg_speed)
+'''
+print("\n--- Evaluation Results ---\n")
+
+# Define column headers
+print(f"{'Metric'.ljust(10)} {'Acc@1'.ljust(10)} {'Acc@3'.ljust(10)} {'Acc@5'.ljust(10)} {'Avg@5'.ljust(10)}")
+
+for name, s_evaluator, f_evaluator in [
+    ("cpu", s_evaluator_cpu, f_evaluator_cpu),
+    ("mem", s_evaluator_mem, f_evaluator_mem),
+    ("io", s_evaluator_io, f_evaluator_io),
+    ("socket", s_evaluator_socket, f_evaluator_socket),
+    ("delay", s_evaluator_lat, f_evaluator_lat),
+    ("loss", s_evaluator_loss, f_evaluator_loss),
+]:
+    # Adjust name for IO -> Disk
+    metric_name = "disk" if name == "io" else name.upper()
+
+    acc1 = round(s_evaluator.accuracy(1), 2)
+    acc3 = round(s_evaluator.accuracy(3), 2)
+    acc5 = round(s_evaluator.accuracy(5), 2)
+    avg5 = round(s_evaluator.average(5), 2) if s_evaluator.average(5) is not None else "N/A"
+
+    print(f"{metric_name.ljust(10)} {str(acc1).ljust(10)} {str(acc3).ljust(10)} {str(acc5).ljust(10)} {str(avg5).ljust(10)}")
+
+print("\n" + "-" * 50)
+print(f"Avg Speed: {avg_speed}\n")
 

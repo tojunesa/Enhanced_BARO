@@ -1,0 +1,366 @@
+
+=== Running baseline for re2-tt ===
+Running adaptive_z on re2-tt...
+Running lof on re2-tt...
+Running iqr on re2-tt...
+Running tukey on re2-tt...
+Running dbscan on re2-tt...
+Running bayesian on re2-tt...
+Running clipping on re2-tt...
+Running winsorization on re2-tt...
+
+=== Running baseline for re2-ob ===
+Running adaptive_z on re2-ob...
+Running lof on re2-ob...
+Running iqr on re2-ob...
+Running tukey on re2-ob...
+Running dbscan on re2-ob...
+Running bayesian on re2-ob...
+Running clipping on re2-ob...
+Running winsorization on re2-ob...
+
+=== Running baseline for re2-ss ===
+Running adaptive_z on re2-ss...
+Running lof on re2-ss...
+Running iqr on re2-ss...
+Running tukey on re2-ss...
+Running dbscan on re2-ss...
+Running bayesian on re2-ss...
+Running clipping on re2-ss...
+Running winsorization on re2-ss...
+
+==== Original Acc@1 Metrics for re2-tt ====
+
+                 CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                      
+Baseline        0.80  1.0   1.0     0.8    0.6  0.53
+adaptive_z      0.80  1.0   1.0     0.8    0.6  0.53
+lof             0.80  1.0   1.0     0.8    0.6  0.53
+iqr             0.73  1.0   1.0     0.8    0.6  0.53
+tukey           0.80  1.0   1.0     0.8    0.6  0.53
+dbscan          0.80  1.0   1.0     0.8    0.6  0.53
+bayesian        0.80  1.0   1.0     0.8    0.6  0.53
+clipping        0.87  1.0   1.0     0.8    0.6  0.53
+winsorization   0.80  1.0   1.0     0.8    0.6  0.53
+
+==== Performance Comparison of Acc@1 Against Baseline (re2-tt) ====
+
+                     CPU    MEM   DISK SOCKET  DELAY   LOSS       Avg
+Outlier Method                                                       
+adaptive_z         0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+lof                0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+iqr             -8.75% ↓  0.00%  0.00%  0.00%  0.00%  0.00%  -1.46% ↓
+tukey              0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+dbscan             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+bayesian           0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+clipping         8.75% ↑  0.00%  0.00%  0.00%  0.00%  0.00%   1.46% ↑
+winsorization      0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+Total Avg          0.00%  0.00%  0.00%  0.00%  0.00%  0.00%     0.00%
+
+==== Original Acc@3 Metrics for re2-tt ====
+
+                CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                     
+Baseline        1.0  1.0   1.0    0.93   0.67  0.60
+adaptive_z      1.0  1.0   1.0    0.93   0.67  0.60
+lof             1.0  1.0   1.0    0.93   0.67  0.67
+iqr             1.0  1.0   1.0    0.93   0.67  0.60
+tukey           1.0  1.0   1.0    0.93   0.67  0.60
+dbscan          1.0  1.0   1.0    0.93   0.67  0.60
+bayesian        1.0  1.0   1.0    0.93   0.67  0.60
+clipping        1.0  1.0   1.0    0.93   0.67  0.60
+winsorization   1.0  1.0   1.0    0.93   0.67  0.60
+
+==== Performance Comparison of Acc@3 Against Baseline (re2-tt) ====
+
+                  CPU    MEM   DISK SOCKET  DELAY      LOSS      Avg
+Outlier Method                                                      
+adaptive_z      0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+lof             0.00%  0.00%  0.00%  0.00%  0.00%  11.67% ↑  1.94% ↑
+iqr             0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+tukey           0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+dbscan          0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+clipping        0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%  0.00%     0.00%    0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%  0.00%   1.46% ↑  0.24% ↑
+
+==== Original Acc@5 Metrics for re2-tt ====
+
+                CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                     
+Baseline        1.0  1.0   1.0    0.93   0.67  0.67
+adaptive_z      1.0  1.0   1.0    0.93   0.67  0.67
+lof             1.0  1.0   1.0    0.93   0.67  0.67
+iqr             1.0  1.0   1.0    0.93   0.67  0.67
+tukey           1.0  1.0   1.0    0.93   0.67  0.67
+dbscan          1.0  1.0   1.0    0.93   0.67  0.67
+bayesian        1.0  1.0   1.0    0.93   0.67  0.67
+clipping        1.0  1.0   1.0    0.93   0.67  0.67
+winsorization   1.0  1.0   1.0    0.93   0.67  0.67
+
+==== Performance Comparison of Acc@5 Against Baseline (re2-tt) ====
+
+                  CPU    MEM   DISK SOCKET  DELAY   LOSS    Avg
+Outlier Method                                                 
+adaptive_z      0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+lof             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+iqr             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+tukey           0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+dbscan          0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+clipping        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+
+==== Original Avg@5 Metrics for re2-tt ====
+
+                 CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                      
+Baseline        0.96  1.0   1.0    0.88   0.65  0.60
+adaptive_z      0.96  1.0   1.0    0.89   0.65  0.60
+lof             0.96  1.0   1.0    0.88   0.65  0.61
+iqr             0.93  1.0   1.0    0.91   0.65  0.60
+tukey           0.95  1.0   1.0    0.91   0.65  0.59
+dbscan          0.96  1.0   1.0    0.88   0.65  0.60
+bayesian        0.96  1.0   1.0    0.88   0.65  0.60
+clipping        0.97  1.0   1.0    0.89   0.65  0.60
+winsorization   0.96  1.0   1.0    0.88   0.65  0.60
+
+==== Performance Comparison of Avg@5 Against Baseline (re2-tt) ====
+
+                     CPU    MEM   DISK   SOCKET  DELAY      LOSS      Avg
+Outlier Method                                                           
+adaptive_z         0.00%  0.00%  0.00%  1.14% ↑  0.00%     0.00%  0.19% ↑
+lof                0.00%  0.00%  0.00%    0.00%  0.00%   1.67% ↑  0.28% ↑
+iqr             -3.12% ↓  0.00%  0.00%  3.41% ↑  0.00%     0.00%  0.05% ↑
+tukey           -1.04% ↓  0.00%  0.00%  3.41% ↑  0.00%  -1.67% ↓  0.12% ↑
+dbscan             0.00%  0.00%  0.00%    0.00%  0.00%     0.00%    0.00%
+bayesian           0.00%  0.00%  0.00%    0.00%  0.00%     0.00%    0.00%
+clipping         1.04% ↑  0.00%  0.00%  1.14% ↑  0.00%     0.00%  0.36% ↑
+winsorization      0.00%  0.00%  0.00%    0.00%  0.00%     0.00%    0.00%
+Total Avg       -0.39% ↓  0.00%  0.00%  1.14% ↑  0.00%     0.00%  0.12% ↑
+
+==== Original Acc@1 Metrics for re2-ob ====
+
+                 CPU   MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                       
+Baseline        0.07  0.60  0.47    0.07   0.40  0.53
+adaptive_z      0.40  0.73  0.60    0.33   0.60  0.60
+lof             0.07  0.60  0.53    0.13   0.40  0.53
+iqr             0.87  0.93  1.00    0.80   0.60  0.80
+tukey           0.80  0.93  1.00    0.80   0.60  0.87
+dbscan          0.13  0.60  0.60    0.13   0.47  0.53
+bayesian        0.07  0.60  0.47    0.07   0.40  0.53
+clipping        0.13  0.60  0.53    0.13   0.40  0.53
+winsorization   0.07  0.60  0.53    0.07   0.40  0.53
+
+==== Performance Comparison of Acc@1 Against Baseline (re2-ob) ====
+
+                       CPU       MEM       DISK      SOCKET     DELAY      LOSS        Avg
+Outlier Method                                                                            
+adaptive_z       471.43% ↑  21.67% ↑   27.66% ↑   371.43% ↑  50.00% ↑  13.21% ↑  159.23% ↑
+lof                  0.00%     0.00%   12.77% ↑    85.71% ↑     0.00%     0.00%   16.41% ↑
+iqr             1142.86% ↑  55.00% ↑  112.77% ↑  1042.86% ↑  50.00% ↑  50.94% ↑  409.07% ↑
+tukey           1042.86% ↑  55.00% ↑  112.77% ↑  1042.86% ↑  50.00% ↑  64.15% ↑  394.61% ↑
+dbscan            85.71% ↑     0.00%   27.66% ↑    85.71% ↑  17.50% ↑     0.00%   36.10% ↑
+bayesian             0.00%     0.00%      0.00%       0.00%     0.00%     0.00%      0.00%
+clipping          85.71% ↑     0.00%   12.77% ↑    85.71% ↑     0.00%     0.00%   30.70% ↑
+winsorization        0.00%     0.00%   12.77% ↑       0.00%     0.00%     0.00%    2.13% ↑
+Total Avg        353.57% ↑  16.46% ↑   39.90% ↑   339.28% ↑  20.94% ↑  16.04% ↑  131.03% ↑
+
+==== Original Acc@3 Metrics for re2-ob ====
+
+                 CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                      
+Baseline        0.87  1.0   1.0    0.87   0.80  0.87
+adaptive_z      0.87  1.0   1.0    0.87   0.80  0.87
+lof             0.87  1.0   1.0    0.87   0.80  0.87
+iqr             0.87  1.0   1.0    0.87   0.93  0.93
+tukey           0.87  1.0   1.0    0.87   0.93  0.93
+dbscan          0.87  1.0   1.0    0.87   0.80  0.87
+bayesian        0.87  1.0   1.0    0.87   0.80  0.87
+clipping        0.87  1.0   1.0    0.87   0.80  0.87
+winsorization   0.87  1.0   1.0    0.87   0.80  0.87
+
+==== Performance Comparison of Acc@3 Against Baseline (re2-ob) ====
+
+                  CPU    MEM   DISK SOCKET     DELAY     LOSS      Avg
+Outlier Method                                                        
+adaptive_z      0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+lof             0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+iqr             0.00%  0.00%  0.00%  0.00%  16.25% ↑  6.90% ↑  3.86% ↑
+tukey           0.00%  0.00%  0.00%  0.00%  16.25% ↑  6.90% ↑  3.86% ↑
+dbscan          0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+clipping        0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%     0.00%    0.00%    0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%   4.06% ↑  1.72% ↑  0.96% ↑
+
+==== Original Acc@5 Metrics for re2-ob ====
+
+                CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                     
+Baseline        1.0  1.0   1.0     1.0    1.0   1.0
+adaptive_z      1.0  1.0   1.0     1.0    1.0   1.0
+lof             1.0  1.0   1.0     1.0    1.0   1.0
+iqr             1.0  1.0   1.0     1.0    1.0   1.0
+tukey           1.0  1.0   1.0     1.0    1.0   1.0
+dbscan          1.0  1.0   1.0     1.0    1.0   1.0
+bayesian        1.0  1.0   1.0     1.0    1.0   1.0
+clipping        1.0  1.0   1.0     1.0    1.0   1.0
+winsorization   1.0  1.0   1.0     1.0    1.0   1.0
+
+==== Performance Comparison of Acc@5 Against Baseline (re2-ob) ====
+
+                  CPU    MEM   DISK SOCKET  DELAY   LOSS    Avg
+Outlier Method                                                 
+adaptive_z      0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+lof             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+iqr             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+tukey           0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+dbscan          0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+clipping        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+
+==== Original Avg@5 Metrics for re2-ob ====
+
+                 CPU   MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                       
+Baseline        0.72  0.92  0.89    0.73   0.76  0.84
+adaptive_z      0.80  0.93  0.92    0.79   0.80  0.85
+lof             0.72  0.92  0.91    0.75   0.76  0.84
+iqr             0.92  0.99  1.00    0.91   0.87  0.92
+tukey           0.91  0.99  1.00    0.91   0.87  0.93
+dbscan          0.73  0.92  0.92    0.75   0.77  0.84
+bayesian        0.72  0.92  0.89    0.73   0.76  0.84
+clipping        0.73  0.91  0.91    0.75   0.76  0.84
+winsorization   0.72  0.92  0.91    0.73   0.76  0.84
+
+==== Performance Comparison of Avg@5 Against Baseline (re2-ob) ====
+
+                     CPU       MEM      DISK    SOCKET     DELAY      LOSS       Avg
+Outlier Method                                                                      
+adaptive_z      11.11% ↑   1.09% ↑   3.37% ↑   8.22% ↑   5.26% ↑   1.19% ↑   5.04% ↑
+lof                0.00%     0.00%   2.25% ↑   2.74% ↑     0.00%     0.00%   0.83% ↑
+iqr             27.78% ↑   7.61% ↑  12.36% ↑  24.66% ↑  14.47% ↑   9.52% ↑  16.07% ↑
+tukey           26.39% ↑   7.61% ↑  12.36% ↑  24.66% ↑  14.47% ↑  10.71% ↑  16.03% ↑
+dbscan           1.39% ↑     0.00%   3.37% ↑   2.74% ↑   1.32% ↑     0.00%   1.47% ↑
+bayesian           0.00%     0.00%     0.00%     0.00%     0.00%     0.00%     0.00%
+clipping         1.39% ↑  -1.09% ↓   2.25% ↑   2.74% ↑     0.00%     0.00%   0.88% ↑
+winsorization      0.00%     0.00%   2.25% ↑     0.00%     0.00%     0.00%   0.38% ↑
+Total Avg        8.51% ↑   1.90% ↑   4.78% ↑   8.22% ↑   4.44% ↑   2.68% ↑   5.09% ↑
+
+==== Original Acc@1 Metrics for re2-ss ====
+
+                 CPU   MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                       
+Baseline        0.13  0.67  0.27    0.27   0.33  0.60
+adaptive_z      0.53  0.80  0.33    0.40   0.47  0.73
+lof             0.13  0.67  0.27    0.27   0.33  0.60
+iqr             1.00  1.00  1.00    0.80   0.67  0.73
+tukey           1.00  1.00  1.00    0.87   0.67  0.73
+dbscan          0.20  0.67  0.27    0.27   0.40  0.60
+bayesian        0.13  0.67  0.27    0.27   0.33  0.60
+clipping        0.13  0.67  0.27    0.27   0.40  0.60
+winsorization   0.13  0.67  0.27    0.27   0.33  0.60
+
+==== Performance Comparison of Acc@1 Against Baseline (re2-ss) ====
+
+                      CPU       MEM       DISK     SOCKET      DELAY      LOSS        Avg
+Outlier Method                                                                           
+adaptive_z      307.69% ↑  19.40% ↑   22.22% ↑   48.15% ↑   42.42% ↑  21.67% ↑   76.92% ↑
+lof                 0.00%     0.00%      0.00%      0.00%      0.00%     0.00%      0.00%
+iqr             669.23% ↑  49.25% ↑  270.37% ↑  196.30% ↑  103.03% ↑  21.67% ↑  218.31% ↑
+tukey           669.23% ↑  49.25% ↑  270.37% ↑  222.22% ↑  103.03% ↑  21.67% ↑  222.63% ↑
+dbscan           53.85% ↑     0.00%      0.00%      0.00%   21.21% ↑     0.00%   12.51% ↑
+bayesian            0.00%     0.00%      0.00%      0.00%      0.00%     0.00%      0.00%
+clipping            0.00%     0.00%      0.00%      0.00%   21.21% ↑     0.00%    3.54% ↑
+winsorization       0.00%     0.00%      0.00%      0.00%      0.00%     0.00%      0.00%
+Total Avg       212.50% ↑  14.74% ↑   70.37% ↑   58.33% ↑   36.36% ↑   8.13% ↑   66.74% ↑
+
+==== Original Acc@3 Metrics for re2-ss ====
+
+                CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                     
+Baseline        1.0  1.0   1.0     1.0   0.93   1.0
+adaptive_z      1.0  1.0   1.0     1.0   0.93   1.0
+lof             1.0  1.0   1.0     1.0   0.93   1.0
+iqr             1.0  1.0   1.0     1.0   0.93   1.0
+tukey           1.0  1.0   1.0     1.0   0.93   1.0
+dbscan          1.0  1.0   1.0     1.0   0.93   1.0
+bayesian        1.0  1.0   1.0     1.0   0.93   1.0
+clipping        1.0  1.0   1.0     1.0   0.93   1.0
+winsorization   1.0  1.0   1.0     1.0   0.93   1.0
+
+==== Performance Comparison of Acc@3 Against Baseline (re2-ss) ====
+
+                  CPU    MEM   DISK SOCKET  DELAY   LOSS    Avg
+Outlier Method                                                 
+adaptive_z      0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+lof             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+iqr             0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+tukey           0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+dbscan          0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+clipping        0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%  0.00%  0.00%  0.00%
+
+==== Original Acc@5 Metrics for re2-ss ====
+
+                CPU  MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                     
+Baseline        1.0  1.0   1.0     1.0   0.93   1.0
+adaptive_z      1.0  1.0   1.0     1.0   0.93   1.0
+lof             1.0  1.0   1.0     1.0   0.93   1.0
+iqr             1.0  1.0   1.0     1.0   1.00   1.0
+tukey           1.0  1.0   1.0     1.0   1.00   1.0
+dbscan          1.0  1.0   1.0     1.0   0.93   1.0
+bayesian        1.0  1.0   1.0     1.0   0.93   1.0
+clipping        1.0  1.0   1.0     1.0   0.93   1.0
+winsorization   1.0  1.0   1.0     1.0   0.93   1.0
+
+==== Performance Comparison of Acc@5 Against Baseline (re2-ss) ====
+
+                  CPU    MEM   DISK SOCKET    DELAY   LOSS      Avg
+Outlier Method                                                     
+adaptive_z      0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+lof             0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+iqr             0.00%  0.00%  0.00%  0.00%  7.53% ↑  0.00%  1.26% ↑
+tukey           0.00%  0.00%  0.00%  0.00%  7.53% ↑  0.00%  1.26% ↑
+dbscan          0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+bayesian        0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+clipping        0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+winsorization   0.00%  0.00%  0.00%  0.00%    0.00%  0.00%    0.00%
+Total Avg       0.00%  0.00%  0.00%  0.00%  1.88% ↑  0.00%  0.32% ↑
+
+==== Original Avg@5 Metrics for re2-ss ====
+
+                 CPU   MEM  DISK  SOCKET  DELAY  LOSS
+Outlier Method                                       
+Baseline        0.83  0.93  0.84    0.83   0.76  0.89
+adaptive_z      0.91  0.96  0.85    0.85   0.81  0.93
+lof             0.83  0.93  0.84    0.83   0.76  0.89
+iqr             1.00  1.00  1.00    0.96   0.89  0.95
+tukey           1.00  1.00  1.00    0.97   0.89  0.95
+dbscan          0.84  0.93  0.84    0.83   0.77  0.91
+bayesian        0.83  0.93  0.84    0.83   0.76  0.89
+clipping        0.83  0.93  0.84    0.83   0.77  0.91
+winsorization   0.83  0.93  0.84    0.83   0.76  0.89
+
+==== Performance Comparison of Avg@5 Against Baseline (re2-ss) ====
+
+                     CPU      MEM      DISK    SOCKET     DELAY     LOSS       Avg
+Outlier Method                                                                    
+adaptive_z       9.64% ↑  3.23% ↑   1.19% ↑   2.41% ↑   6.58% ↑  4.49% ↑   4.59% ↑
+lof                0.00%    0.00%     0.00%     0.00%     0.00%    0.00%     0.00%
+iqr             20.48% ↑  7.53% ↑  19.05% ↑  15.66% ↑  17.11% ↑  6.74% ↑  14.43% ↑
+tukey           20.48% ↑  7.53% ↑  19.05% ↑  16.87% ↑  17.11% ↑  6.74% ↑  14.63% ↑
+dbscan           1.20% ↑    0.00%     0.00%     0.00%   1.32% ↑  2.25% ↑   0.80% ↑
+bayesian           0.00%    0.00%     0.00%     0.00%     0.00%    0.00%     0.00%
+clipping           0.00%    0.00%     0.00%     0.00%   1.32% ↑  2.25% ↑   0.60% ↑
+winsorization      0.00%    0.00%     0.00%     0.00%     0.00%    0.00%     0.00%
+Total Avg        6.48% ↑  2.29% ↑   4.91% ↑   4.37% ↑   5.43% ↑  2.81% ↑   4.38% ↑

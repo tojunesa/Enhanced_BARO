@@ -224,7 +224,7 @@ def baro(
             a = outlier_methods[outlier_method](a)
             b = outlier_methods[outlier_method](b)
 
-         
+        """ 
         if augment_features:
             normal_augmented = apply_augmentation(a, augment_features)
             anomal_augmented = apply_augmentation(b, augment_features)
@@ -248,6 +248,13 @@ def baro(
             zscores = scaler.transform(b.reshape(-1, 1))[:, 0]
             score = max(zscores)
             ranks.append((col, score))
+        """ 
+        scaler = RobustScaler().fit(a.reshape(-1, 1))
+        zscores = scaler.transform(b.reshape(-1, 1))[:, 0]
+        #score = max(zscores)
+        score = np.mean(zscores)
+        #score = np.median(zscores)
+        ranks.append((col, score))
 
     ranks = sorted(ranks, key=lambda x: x[1], reverse=True)
     ranks = [x[0] for x in ranks]

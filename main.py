@@ -157,6 +157,9 @@ from tempfile import TemporaryDirectory
 output_path = "output"
 report_path = join(output_path, f"report.xlsx")
 result_path = join(output_path, "results")
+# Remove existing directory if it exists
+if os.path.exists(output_path):
+    shutil.rmtree(output_path)
 os.makedirs(result_path, exist_ok=True)
 
 

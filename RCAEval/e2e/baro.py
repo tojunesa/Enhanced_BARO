@@ -155,7 +155,7 @@ def raw(data):
     return data
 
 def baro(
-    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, outlier_method='adaptive_z', augment_features=None, **kwargs
+    data, inject_time=None, dataset=None, num_loop=None, sli=None, anomalies=None, outlier_method='adaptive_z', augment_features=None, ranking="max", **kwargs
 ):
     if anomalies is None:
         normal_df = data[data["time"] < inject_time]
@@ -251,9 +251,13 @@ def baro(
         """ 
         scaler = RobustScaler().fit(a.reshape(-1, 1))
         zscores = scaler.transform(b.reshape(-1, 1))[:, 0]
-        #score = max(zscores)
-        score = np.mean(zscores)
-        #score = np.median(zscores)
+
+        if (ranking is None) or (ranking == "max"):
+            score = max(zscores)
+        elif ranking == "mean":
+            score = np.mean(zscores)
+        elif ranking == "med":
+            score = np.median(zscores)
         ranks.append((col, score))
 
     ranks = sorted(ranks, key=lambda x: x[1], reverse=True)

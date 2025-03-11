@@ -81,8 +81,9 @@ except ImportError:
 def parse_args():
     parser = argparse.ArgumentParser(description="RCAEval evaluation")
     parser.add_argument("--method", type=str, help="Choose a method.")
-    parser.add_argument("--outlier", type=str, help="Choose a method.")
+    parser.add_argument("--outlier", type=str, help="Choose a method.", choices=["adaptive_z", "iqr", "tukey", "dbscan", "bayesian", "winsorization"])
     parser.add_argument("--feature-augment", type=str, default=None, help="Choose a method.")
+    parser.add_argument("--ranking", type=str, default=None, help="Choose a ranking method.")
     parser.add_argument("--dataset", type=str, help="Choose a dataset.", choices=[
         "online-boutique", "sock-shop-1", "sock-shop-2", "train-ticket",
         "re1-ob", "re1-ss", "re1-tt", "re2-ob", "re2-ss", "re2-tt", "re3-ob", "re3-ss", "re3-tt"
@@ -258,6 +259,7 @@ def process(data_path):
             n_iter=num_node,
             outlier_method=args.outlier,
             augment_features=args.feature_augment.split('-') if args.feature_augment else None,
+            ranking=args.ranking if args.ranking else None,
             args=run_args,
         )
         root_causes = out.get("ranks")

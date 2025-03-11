@@ -30,7 +30,7 @@ sudo apt install -y build-essential \
 Clone RCAEval from GitHub
 
 ```bash
-git clone https://github.com/phamquiluan/RCAEval.git && cd RCAEval
+git clone https://github.com/tojunesa/Enhanced_BARO.git && cd RCAEval
 ```
 
 Create virtual environment with Python 3.10 (refer [SETUP.md](docs/SETUP.md) to see how to install Python3.10 on Linux)
